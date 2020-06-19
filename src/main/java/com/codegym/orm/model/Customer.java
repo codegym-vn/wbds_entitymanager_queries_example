@@ -2,11 +2,8 @@ package com.codegym.orm.model;
 
 import org.hibernate.annotations.NamedQuery;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+
 import org.hibernate.annotations.NamedQueries;
 
 @NamedQueries(
@@ -17,6 +14,14 @@ import org.hibernate.annotations.NamedQueries;
                 )
         }
 )
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "insert_Customer",
+                query = "CALL Insert_Customer(:firstName, :lastName, :address)",
+                resultClass  = Customer.class
+
+        )
+})
 @Entity
 @Table(name = "customers")
 public class Customer {

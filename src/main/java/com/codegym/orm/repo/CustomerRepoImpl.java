@@ -65,4 +65,23 @@ public class CustomerRepoImpl implements CustomerRepo {
         return true;
     }
     //endregion
+
+    //region STORED PROCEDURE
+    @Override
+    public boolean insertWithSP(Customer customer) {
+//        StoredProcedureQuery query = entityManager.createStoredProcedureQuery("Insert_Customer");
+//        query.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+//        query.registerStoredProcedureParameter(2, String.class, ParameterMode.IN);
+//        query.registerStoredProcedureParameter(3, String.class, ParameterMode.IN);
+//        query.setParameter(1, customer.getFirstName());
+//        query.setParameter(2, customer.getLastName());
+//        query.setParameter(3, customer.getAddress());
+//        return query.execute();
+        Query query = entityManager.createNativeQuery("CALL Insert_Customer(:firstName, :lastName, :address)");
+        query.setParameter("firstName", customer.getFirstName());
+        query.setParameter("lastName", customer.getLastName());
+        query.setParameter("address", customer.getAddress());
+        return query.executeUpdate() == 0;
+    }
+    //endregion
 }

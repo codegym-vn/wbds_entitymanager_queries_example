@@ -26,7 +26,7 @@ public class CustomerController {
 
     @PostMapping("/create-customer")
     public ModelAndView saveCustomer(@ModelAttribute("customer") Customer customer) {
-        customerService.saveCustomer(customer);
+        customerService.insertWithSP(customer);
         ModelAndView modelAndView = new ModelAndView("/customer/create");
         modelAndView.addObject("customer", customer);
         modelAndView.addObject("message", "New customer is added");

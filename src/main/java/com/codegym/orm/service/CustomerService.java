@@ -14,4 +14,6 @@ public interface CustomerService {
     public boolean saveCustomer(Customer customer);
 
     public boolean removeCustomer(Customer customer);
+
+    public boolean insertWithSP(Customer customer);
 }

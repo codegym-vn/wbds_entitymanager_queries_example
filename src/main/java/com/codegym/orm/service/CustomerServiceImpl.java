@@ -34,4 +34,9 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean removeCustomer(Customer customer) {
         return customerRepo.removeCustomer(customer);
     }
+
+    @Override
+    public boolean insertWithSP(Customer customer) {
+        return customerRepo.insertWithSP(customer);
+    }
 }

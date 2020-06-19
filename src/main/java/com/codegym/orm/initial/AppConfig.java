@@ -36,9 +36,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
-    //Thymeleaf Configuration
-    private ApplicationContext applicationContext;
-
+    //region Dependencies
     @Bean
     public CustomerRepo customerRepo() {
         return new CustomerRepoImpl();
@@ -47,6 +45,14 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Bean
     public CustomerService customerService() {
         return new CustomerServiceImpl();
+    }
+    //endregion
+
+    //region Thymeleaf Configuration
+    private ApplicationContext applicationContext;
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     @Bean
@@ -72,6 +78,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
     }
+    //endregion
+
+    //region JPA Configuration
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -112,9 +121,5 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+    //endregion
 }
